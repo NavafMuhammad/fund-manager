@@ -38,6 +38,7 @@ class TransactionDB implements TransactionDbFunctions {
 
   Future<void> refresh() async {
     final _list = await getAllTransactions();
+    _list.sort((first, second)=> first.date.compareTo(second.date));
     transactionNotifier.value.clear();
     transactionNotifier.value.addAll(_list);
     transactionNotifier.notifyListeners();
